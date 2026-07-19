@@ -21,3 +21,7 @@
 /* Single hero restored */
 .airline-hero{min-height:360px}.airline-hero .hero-copy-wrap{max-width:57%}.airline-hero .hamster-hero{display:block;position:absolute;z-index:0;right:0;top:0;width:56%;height:100%;object-fit:cover;object-position:58% center}.airline-hero .hero-copy-wrap{position:relative;z-index:2}.airline-hero:after{display:block;background:linear-gradient(90deg,#172052 0%,rgba(35,45,111,.97) 37%,rgba(49,59,134,.18) 67%,transparent 100%)}
 @media(max-width:760px){.airline-hero{min-height:450px;padding-bottom:230px}.airline-hero .hero-copy-wrap{max-width:100%}.airline-hero .hamster-hero{top:auto;bottom:0;width:100%;height:255px;object-position:60% 48%}.airline-hero:after{display:block;background:linear-gradient(180deg,#172052 0%,#303b87 46%,rgba(48,59,135,.12) 72%,transparent 100%)}}
+
+/* Natural Korean line wrapping */
+.hero h1,.hero-copy,.report h2,.report h3,.report p,.report li,.toc a,.hero-meta span{word-break:keep-all;overflow-wrap:break-word}.report a{word-break:break-all}.hero h1{text-wrap:balance}.report h2,.report h3{text-wrap:pretty}
+@media(max-width:760px){.hero h1{font-size:clamp(27px,8.2vw,38px);line-height:1.3;letter-spacing:-.035em}.hero-copy{line-height:1.75}.report h2{line-height:1.45;letter-spacing:-.025em}.report h3{line-height:1.5}.hero-meta span{line-height:1.45}}
