@@ -1,0 +1,11 @@
+{
+    "updatedAt":  "2026-07-20T01:37:15+09:00",
+    "reports":  [
+                    {
+                        "id":  "2026-07-20-korean-air-3month",
+                        "date":  "2026-07-20",
+                        "file":  "reports/2026-07-20-korean-air-3month.md",
+                        "title":  "2026-07-20 대한항공 최근 3개월 이슈 브리프"
+                    }
+                ]
+}
