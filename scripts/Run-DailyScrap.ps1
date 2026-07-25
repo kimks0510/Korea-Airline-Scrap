@@ -13,8 +13,36 @@ function Write-RunLog {
         Tee-Object -FilePath $runLog -Append
 }
 
+function Wait-ForSemiconductorReport {
+    $mainRoot = Split-Path $repo -Parent
+    $mainOutput = Join-Path $mainRoot 'output'
+    $deadline = (Get-Date).AddHours(2)
+    $lastProgressLog = [datetime]::MinValue
+
+    Write-RunLog 'Waiting for today semiconductor task to finish before Korean Air delivery'
+    while ((Get-Date) -lt $deadline) {
+        $todayRuns = Get-ChildItem -LiteralPath $mainOutput -Filter "run-$((Get-Date).ToString('yyyyMMdd'))-*.log" -ErrorAction SilentlyContinue |
+            Sort-Object LastWriteTime -Descending
+        foreach ($todayRun in $todayRuns) {
+            if (Select-String -LiteralPath $todayRun.FullName -SimpleMatch 'SUCCESS daily semiconductor report' -Quiet) {
+                Write-RunLog "Semiconductor task completed: $($todayRun.Name)"
+                return
+            }
+        }
+
+        if (((Get-Date) - $lastProgressLog).TotalMinutes -ge 5) {
+            Write-RunLog 'Semiconductor task is still running; Korean Air task remains queued'
+            $lastProgressLog = Get-Date
+        }
+        Start-Sleep -Seconds 30
+    }
+
+    Write-RunLog 'WARNING semiconductor completion was not confirmed within 2 hours; continuing Korean Air task independently'
+}
+
 try {
     Write-RunLog "START daily Korean Air report for $date"
+    Wait-ForSemiconductorReport
     if (Test-Path -LiteralPath $report) {
         Write-RunLog 'Report already exists; skipping generation and resuming publish/send'
     } else {
