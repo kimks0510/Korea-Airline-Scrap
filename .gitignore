@@ -1,3 +1,9 @@
 .secrets/
 output/errors.log
+output/kakao-send.log
+output/run-*.log
+output/codex-*.out.log
+output/codex-*.err.log
+output/manual-*.log
+output/trial-*.log
 *.tmp
