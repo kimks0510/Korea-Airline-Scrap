@@ -2,8 +2,8 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $script = (Resolve-Path (Join-Path $PSScriptRoot 'Run-DailyScrap.ps1')).Path
 $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$script`""
-$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday -At '08:20'
+$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Tuesday,Friday -At '08:20'
 $settings = New-ScheduledTaskSettingsSet -WakeToRun -StartWhenAvailable -RunOnlyIfNetworkAvailable -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 10) -ExecutionTimeLimit (New-TimeSpan -Hours 3) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 Register-ScheduledTask -TaskName 'Korean Air Daily Scrap' -Action $action -Trigger $trigger -Settings $settings -Principal $principal -Description 'Build and publish Korean Air cabin crew preparation report' -Force | Out-Null
-Write-Output 'Scheduled task registered: Korean Air Daily Scrap (weekdays 08:20)'
+Write-Output 'Scheduled task registered: Korean Air Daily Scrap (Tue/Fri 08:20)'
